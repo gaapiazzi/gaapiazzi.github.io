@@ -46,7 +46,7 @@ function appendToTR(tr){
 *******************************************************************************/
 $(document).ready(function() {
 
-  ZeroClipboard.setDefaults( { moviePath: 'scripts/ZeroClipboard.swf' } );
+  //ZeroClipboard.setDefaults( { moviePath: 'scripts/ZeroClipboard.swf' } );
   var clip = new ZeroClipboard($("#d_clip_button"));
 
   clip.on("ready", function() {
