@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Targeting Rules</title>
+  <link rel="stylesheet" href="css/targeting_rules.css"  type="text/css" />
+  <script src="scripts/jquery-1.11.2.js"></script>
+  <script src="scripts/jquery-ui.js"></script>
+  <script src="scripts/ZeroClipboard.js"></script>
+  <script src="scripts/targeting_rules.js"></script>
+</head>
+<body>
+<div id="header">
+  <div class="wrapper">
+      <h1>Targeting Rules</h1>
+      <p>Backend 3.0</p>
+  </div>
+</div>
+
+<!-- ####################################################################################################### -->
+
+<div id="container">
+  <div class="wrapper">
+    <div class="box">
+      <div>
+        <select id="property">
+        <option value="EnvironmentId">EnvironmentId</option>
+        <option value="Graphics.DriverProviderName">Graphics.DriverProviderName</option>
+        <option value="Graphics.HardwareID">Graphics.HardwareID</option>
+        <option value="Graphics.MatchingID">Graphics.MatchingID</option>
+        <option value="OS.Arch">OS.Arch</option>
+        <option value="OS.Version">OS.Version</option>
+        <option value="System.Manufacturer">System.Manufacturer</option>
+        <option value="System.ProcessorId">System.ProcessorId</option>
+        <option value="System.Vendor">System.Vendor</option>
+        <option value="WIDI.AdapterModel">WIDI.AdapterModel</option>
+        <option value="WiFi.BundleVersion">WiFi.BundleVersion</option>
+        <option value="WiFi.DriverProviderName">WiFi.DriverProviderName</option>
+        <option value="WiFi.HardwareID">WiFi.HardwareID</option>
+        </select>
+
+        <select id="operator">
+        <option value="==">Equals</option>
+        <option value="!=">Not Equals</option>
+        <option value="<">Less Than</option>
+        <option value="<=">Less or Equals Than</option>
+        <option value=">">Greater Than</option>
+        <option value=">=">Greater or Equals Than</option>
+        <option value="match">Is Match</option>
+        </select>
+
+        <Input id="literalvalue" type="text">
+
+        <input type="button" id="button_add" class="buttons background highlight" value="Add" onclick="createTR(); toggle(); toggleParentheses(1)">
+
+        </div>
+        <br>
+        <div>
+        <input type="button" class="buttons background highlight" value="(" onclick="appendToTR('('); incrParentheses();">
+        <input type="button" class="buttons background" value="AND" onclick="appendToTR(' AND\n'); toggle();">
+        <input type="button" class="buttons background highlight" value="NOT" onclick="appendToTR('NOT ');">
+        <input type="button" class="buttons background" value="OR" onclick="appendToTR(' OR\n'); toggle();" >
+        <input type="button" class="sbutton background" value=")" onclick="appendToTR(')'); decrParentheses();">
+        </div>
+      </div>
+  </div>
+</div>
+<!-- ####################################################################################################### -->
+<div id="containerTR">
+  <div class="wrapper">
+    <textarea id="TR" name="TR"></textarea>
+  </div>
+  <div id="d_debug"><p>Flash movie loaded and ready.</p></div>
+</div>
+<!-- ####################################################################################################### -->
+<div id="footer">
+  <div class="wrapper">
+    <input type="button" value="Validate" class="highlight" onclick="validateTR($('#TR').val())">
+    <input type="button" value="Copy" class="highlight" id="d_clip_button" data-clipboard-target="TR">
+    <input type="button" value="Clear" class="highlight" onclick="clearTR()">
+  </div>
+</div>
+<!-- ####################################################################################################### -->
+<div id="copyright">
+  <div class="wrapper">
+    <p>Targeting Rules - Gabriela Piazzi</p>
+  </div>
+</div>
+</body>
+</html>
