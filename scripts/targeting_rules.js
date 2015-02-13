@@ -72,7 +72,6 @@ function validateTR(targeting_rule){
         return ! regexpr.test(arr)
     }
     var tr = targeting_rule.toLowerCase().replace(replace, '""').split(separator).filter(filter);
-    alert(targeting_rule.indexOf('(').length)
     alert (validateTR_recursion(tr, 0, 1));
 }
 
