@@ -31,7 +31,7 @@ function createTR(){
     var property = $("#property").val();
     var operator = $("#operator").val();
     var value = $("#literalvalue").val();
-    appendToTR(property + ' '+ operator + ' \\"' + value + '\\"');
+    appendToTR(property + ' '+ operator + ' "' + value + '"');
 }
 
 function appendToTR(tr){
