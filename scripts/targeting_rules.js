@@ -1,5 +1,3 @@
-//TODO CHECK PARENTHESES BALANCED
-
 /*******************************************************************************
 ***************************** ENABLE VALID BUTTONS *****************************
 *******************************************************************************/
@@ -24,6 +22,7 @@ function toggleParentheses(onoff){
     else $(".sbutton").removeClass("highlight");
 }
 
+
 /*******************************************************************************
 ********************************* APPEND TO TR *********************************
 *******************************************************************************/
@@ -32,8 +31,7 @@ function createTR(){
     var property = $("#property").val();
     var operator = $("#operator").val();
     var value = $("#literalvalue").val();
-    if (! (parseInt(value).toString() == value)) value = '"' + value + '"';
-    appendToTR(property + ' '+ operator + ' ' + value);
+    appendToTR(property + ' '+ operator + ' \\"' + value + '\\"');
 }
 
 function appendToTR(tr){
@@ -41,12 +39,15 @@ function appendToTR(tr){
     $(".sbutton").removeClass("highlight");
 }
 
+
 /*******************************************************************************
 ******************************* COPY TO CLIPBOARD ******************************
 *******************************************************************************/
 $(document).ready(function() {
   var clip = new ZeroClipboard($("#d_clip_button"));
 })
+
+
 /*******************************************************************************
 ************************************* CLEAR ************************************
 *******************************************************************************/
@@ -57,6 +58,7 @@ function clearTR(){
     $(".sbutton").removeClass("highlight");
     if($("#button_add").attr('class').indexOf('highlight') == -1) toggle()
 }
+
 
 /*******************************************************************************
 ************************* TARGGETING RULES VALIDATION **************************
@@ -70,6 +72,7 @@ function validateTR(targeting_rule){
         return ! regexpr.test(arr)
     }
     var tr = targeting_rule.toLowerCase().replace(replace, '""').split(separator).filter(filter);
+    alert(targeting_rule.indexOf('(').length)
     alert (validateTR_recursion(tr, 0, 1));
 }
 
