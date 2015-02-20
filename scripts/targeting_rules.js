@@ -31,7 +31,7 @@ function createTR(){
     var property = $("#property").val();
     var operator = $("#operator").val();
     var value = $("#literalvalue").val();
-    appendToTR(property + ' '+ operator + ' "' + value + '"');
+    appendToTR(property + ' '+ operator + ' \\"' + value.replace("\\","\\\\") + '\\"');
 }
 
 function appendToTR(tr){
@@ -66,13 +66,13 @@ function clearTR(){
 
 function validateTR(targeting_rule){
     var separator = /(\(|\)|<=|>=|>|<|==|!=|\s)/
-    var replace = /(?:"[^\\"]*(\\"[^\\"]*)*"|'[^\\']*(\\'[^\\']*)*')/g
+    var replace = /(?:\\"([^\\]*(\\{2})*[^\\]+)*\\")/g
     var filter = function(arr){
         regexpr = /^\s*$/;
         return ! regexpr.test(arr)
     }
     var tr = targeting_rule.toLowerCase().replace(replace, '""').split(separator).filter(filter);
-    alert (validateTR_recursion(tr, 0, 1));
+    alert (validateTR_recursion(tr, 0, 1, 0));
 }
 
 function validate_tr(targeting_rule){
@@ -80,21 +80,22 @@ function validate_tr(targeting_rule){
     return regexpr_tr.test(targeting_rule)
 }
 
-function validateTR_recursion(targeting_rule, type, final){
-    if(targeting_rule.length == 0 && final == 1) return true;
+function validateTR_recursion(targeting_rule, type, final, balanced){
+    if(targeting_rule.length == 0 && final == 1 && balanced == 0) return true;
     else if (type == 0){
         var tr = targeting_rule.shift();
-        if (tr == 'not' || tr == '(') return validateTR_recursion(targeting_rule, 0, 0);
+        if (tr == 'not') return validateTR_recursion(targeting_rule, 0, 0, balanced);
+        else if (tr == '(') return validateTR_recursion(targeting_rule, 0, 0, balanced + 1);
         else {
             var isvalidtr = validate_tr(tr + targeting_rule.shift() + targeting_rule.shift());
-            if (isvalidtr) return validateTR_recursion(targeting_rule, 1, 1);
+            if (isvalidtr) return validateTR_recursion(targeting_rule, 1, 1, balanced);
             else return false
         };
     }
     else if (type == 1){
         var tr = targeting_rule.shift();
-        if (tr == 'and' || tr == 'or') return validateTR_recursion(targeting_rule, 0, 0);
-        else if (tr == ')') return validateTR_recursion(targeting_rule, 1, 1);
+        if (tr == 'and' || tr == 'or') return validateTR_recursion(targeting_rule, 0, 0, balanced);
+        else if (tr == ')') return validateTR_recursion(targeting_rule, 1, 1, balanced - 1);
         else return false;
     }
     else return false;
